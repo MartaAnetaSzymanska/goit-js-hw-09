@@ -14,12 +14,13 @@ const options = {
     console.log(selectedDates[0]);
     if (selectedDates[0] < new Date()) {
       window.alert('Please choose a date in the future');
+    } else {
+      startBtn.removeAttribute('disabled');
+      timeLeft = selectedDates[0] - new Date();
     }
-    startBtn.removeAttribute('disabled');
-    timeLeft = selectedDates[0].getTime() - new Date().getTime();
   },
 };
-console.log(timeLeft);
+
 const fp = flatpickr(input, options);
 
 // -------------- TIMER --------------------
@@ -49,7 +50,13 @@ function convertMs(ms) {
 }
 
 let interval;
-let timeLeftObj = convertMs(timeLeft);
 startBtn.addEventListener('click', ev => {
-  interval = setInterval(() => {}, 1000);
+  interval = setInterval(() => {
+    let timeLeftObj = convertMs(timeLeft);
+    dataDays.innerText = timeLeftObj.days;
+    dataHours.innerText = timeLeftObj.hours;
+    dataMinutes.innerText = timeLeftObj.minutes;
+    dataSeconds.innerText = timeLeftObj.seconds;
+    timeLeft -= 1000;
+  }, 1000);
 });
