@@ -11,7 +11,6 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
     if (selectedDates[0] < new Date()) {
       window.alert('Please choose a date in the future');
     } else {
@@ -27,7 +26,7 @@ const fp = flatpickr(input, options);
 
 const dataDays = document.querySelector('span[data-days]');
 const dataHours = document.querySelector('span[data-hours]');
-const dataMinutes = document.querySelector('spa[data-minutes]');
+const dataMinutes = document.querySelector('span[data-minutes]');
 const dataSeconds = document.querySelector('span[data-seconds]');
 
 function convertMs(ms) {
@@ -53,10 +52,17 @@ let interval;
 startBtn.addEventListener('click', ev => {
   interval = setInterval(() => {
     let timeLeftObj = convertMs(timeLeft);
-    dataDays.innerText = timeLeftObj.days;
-    dataHours.innerText = timeLeftObj.hours;
-    dataMinutes.innerText = timeLeftObj.minutes;
-    dataSeconds.innerText = timeLeftObj.seconds;
+    dataDays.innerText = addLeadingZero(timeLeftObj.days);
+    dataHours.innerText = addLeadingZero(timeLeftObj.hours);
+    dataMinutes.innerText = addLeadingZero(timeLeftObj.minutes);
+    dataSeconds.innerText = addLeadingZero(timeLeftObj.seconds);
     timeLeft -= 1000;
   }, 1000);
 });
+function addLeadingZero(value) {
+  if (value.toString().length < 2) {
+    return value.toString().padStart(2, '0');
+  } else {
+    return value;
+  }
+}
