@@ -1,0 +1,2 @@
+function e(e,t){Math.random()>.3?console.log(`✅ Fulfilled promise ${e} in ${t}ms`):console.log(`❌ Rejected promise ${e} in ${t}ms`)}let t;document.querySelector(".form").addEventListener("submit",(l=>{let o=l.target.elements.delay.value,n=l.target.elements.step.value,m=l.target.elements.amount.value;for(let l=1;l<=m;l++)t=setTimeout(e(l,o)),o+=n}));
+//# sourceMappingURL=03-promises.b51030d8.js.map

@@ -1,0 +1,2 @@
+!function(){function e(e,t){Math.random()>.3?console.log("✅ Fulfilled promise ".concat(e," in ").concat(t,"ms")):console.log("❌ Rejected promise ".concat(e," in ").concat(t,"ms"))}document.querySelector(".form").addEventListener("submit",(function(t){for(var n=t.target.elements.delay.value,o=t.target.elements.step.value,a=t.target.elements.amount.value,c=1;c<=a;c++)setTimeout(e(c,n)),n+=o}))}();
+//# sourceMappingURL=03-promises.dcaa3253.js.map
