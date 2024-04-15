@@ -3,9 +3,9 @@ function createPromise(position, delay) {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       if (shouldResolve) {
-        resolve(`Fulfilled promise`);
+        resolve({ position, delay });
       } else {
-        reject(`Rejected promise`);
+        reject({ position, delay });
       }
     }, delay);
   });
@@ -18,7 +18,6 @@ function createPromise(position, delay) {
 }
 
 const promiseForm = document.querySelector('.form');
-let position = 1;
 
 promiseForm.addEventListener('submit', ev => {
   ev.preventDefault();
@@ -26,8 +25,9 @@ promiseForm.addEventListener('submit', ev => {
   let step = ev.target.elements.step.value;
   let amount = ev.target.elements.amount.value;
 
-  for (position; position <= amount; position++) {
-    createPromise();
-    delay += step;
+  for (let i = 1; i <= amount; i++) {
+    let currentDelay = delay;
+    createPromise(i, currentDelay);
+    currentDelay += step;
   }
 });
