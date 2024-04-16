@@ -10,6 +10,9 @@ startBtn.addEventListener('click', ev => {
   timerId = setInterval(() => {
     body.style.backgroundColor = getRandomHexColor();
   }, 1000);
+  if (stopBtn.hasAttribute('disabled')) {
+    stopBtn.removeAttribute('disabled');
+  }
 });
 
 function getRandomHexColor() {
@@ -18,5 +21,6 @@ function getRandomHexColor() {
 
 stopBtn.addEventListener('click', () => {
   clearInterval(timerId);
+  stopBtn.setAttribute('disabled', '');
   startBtn.removeAttribute('disabled');
 });
