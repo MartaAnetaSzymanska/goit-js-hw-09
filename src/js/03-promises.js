@@ -15,9 +15,9 @@ const promiseForm = document.querySelector('.form');
 
 promiseForm.addEventListener('submit', ev => {
   ev.preventDefault();
-  let delay = Number(ev.target.elements.delay.value);
-  let step = Number(ev.target.elements.step.value);
-  let amount = Number(ev.target.elements.amount.value);
+  const delay = Number(ev.target.elements.delay.value);
+  const step = Number(ev.target.elements.step.value);
+  const amount = Number(ev.target.elements.amount.value);
 
   let currentDelay = delay;
 

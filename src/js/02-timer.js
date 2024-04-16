@@ -4,6 +4,8 @@ import 'flatpickr/dist/flatpickr.min.css';
 const input = document.querySelector('input#datetime-picker');
 const startBtn = document.querySelector('button[data-start]');
 let timeLeft;
+let interval;
+
 startBtn.setAttribute('disabled', '');
 const options = {
   enableTime: true,
@@ -13,13 +15,16 @@ const options = {
   onClose(selectedDates) {
     if (selectedDates[0] < new Date()) {
       window.alert('Please choose a date in the future');
+    } else if (interval) {
+      clearInterval(interval);
+      startBtn.removeAttribute('disabled');
+      timeLeft = selectedDates[0] - new Date();
     } else {
       startBtn.removeAttribute('disabled');
       timeLeft = selectedDates[0] - new Date();
     }
   },
 };
-
 const fp = flatpickr(input, options);
 
 // -------------- TIMER --------------------
@@ -48,7 +53,6 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-let interval;
 startBtn.addEventListener('click', ev => {
   interval = setInterval(() => {
     let timeLeftObj = convertMs(timeLeft);
@@ -56,7 +60,11 @@ startBtn.addEventListener('click', ev => {
     dataHours.innerText = addLeadingZero(timeLeftObj.hours);
     dataMinutes.innerText = addLeadingZero(timeLeftObj.minutes);
     dataSeconds.innerText = addLeadingZero(timeLeftObj.seconds);
-    timeLeft -= 1000;
+    if (timeLeft >= 1000) {
+      timeLeft -= 1000;
+    } else {
+      interval = 0;
+    }
   }, 1000);
 });
 function addLeadingZero(value) {
